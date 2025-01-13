@@ -116,44 +116,44 @@ class CommentControllerIntegrationTest {
                 .andExpect(status().isNotFound());
     }
 
-//    @Test
-//    void shouldCreateComment() throws Exception {
-//        //given
-//        CommentRequest commentRequest = TestData.generateCommentRequest();
-//        CommentResponse commentResponse = TestData.generateCommentResponse();
-//        String jsonCommentRequest = objectMapper.writeValueAsString(commentRequest);
-//        UUID authorId = commentResponse.authorId();
-//        UUID newsId = commentResponse.newsId();
-//
-//        Principal mockPrincipal = mock(Principal.class);
-//        when(mockPrincipal.getName())
-//                .thenReturn(authorId.toString());
-//
-//        WireMock.stubFor(WireMock.get("/api/v1/users/" + authorId)
-//                .willReturn(WireMock.aResponse()
-//                        .withHeader(CONTENT_TYPE, APPLICATION_JSON_VALUE)
-//                        .withStatus(200)
-//                        .withBodyFile(RESPONSE_BODY)));
-//
-//
-//        MockHttpServletRequestBuilder requestBuilder = post("/api/v1/news/{newsId}/comments", newsId)
-//                .header(CONTENT_TYPE, APPLICATION_JSON_VALUE)
-//                .content(jsonCommentRequest)
-//                .with(request -> {
-//                    request.setUserPrincipal(mockPrincipal);
-//                    return request;
-//                });
-//
-//        //when, then
-//        mockMvc.perform(requestBuilder)
-//                .andExpectAll(status().isCreated(),
-//                        content().contentType(MediaType.APPLICATION_JSON),
-//                        jsonPath("$.id").isNotEmpty(),
-//                        jsonPath("$.text").value(commentResponse.text()),
-//                        jsonPath("$.newsId").value(commentResponse.newsId().toString()),
-//                        jsonPath("$.authorId").value(commentResponse.authorId().toString())
-//                );
-//    }
+    @Test
+    void shouldCreateComment() throws Exception {
+        //given
+        CommentRequest commentRequest = TestData.generateCommentRequest();
+        CommentResponse commentResponse = TestData.generateCommentResponse();
+        String jsonCommentRequest = objectMapper.writeValueAsString(commentRequest);
+        UUID authorId = commentResponse.authorId();
+        UUID newsId = commentResponse.newsId();
+
+        Principal mockPrincipal = mock(Principal.class);
+        when(mockPrincipal.getName())
+                .thenReturn(authorId.toString());
+
+        WireMock.stubFor(WireMock.get("/api/v1/users/" + authorId)
+                .willReturn(WireMock.aResponse()
+                        .withHeader(CONTENT_TYPE, APPLICATION_JSON_VALUE)
+                        .withStatus(200)
+                        .withBodyFile(RESPONSE_BODY)));
+
+
+        MockHttpServletRequestBuilder requestBuilder = post("/api/v1/news/{newsId}/comments", newsId)
+                .header(CONTENT_TYPE, APPLICATION_JSON_VALUE)
+                .content(jsonCommentRequest)
+                .with(request -> {
+                    request.setUserPrincipal(mockPrincipal);
+                    return request;
+                });
+
+        //when, then
+        mockMvc.perform(requestBuilder)
+                .andExpectAll(status().isCreated(),
+                        content().contentType(MediaType.APPLICATION_JSON),
+                        jsonPath("$.id").isNotEmpty(),
+                        jsonPath("$.text").value(commentResponse.text()),
+                        jsonPath("$.newsId").value(commentResponse.newsId().toString()),
+                        jsonPath("$.authorId").value(commentResponse.authorId().toString())
+                );
+    }
 
     @Test
     void shouldUpdateComment() throws Exception {

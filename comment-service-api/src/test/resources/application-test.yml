@@ -3,4 +3,7 @@ spring:
     url: jdbc:tc:postgresql:15.1-alpine://comment-service
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master-test.yaml
+user:
+  service:
+    url: http://localhost:${wiremock.server.port}
 
