@@ -1,0 +1,30 @@
+#name: smart-news-platform
+#services:
+#  comment-service:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    ports:
+#      - "8081:8081"
+#    depends_on:
+#      - db-comment
+#    restart: always
+#    environment:
+#      SPRING_PROFILES_ACTIVE: dev
+#      SPRING_DATASOURCE_URL: 'jdbc:postgresql://db-comment:5432/comment-service_db'
+#      USER_SERVICE_URL: 'http://user-service:8083'
+#      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: 'http://keycloak:8080/realms/smart-news-platform'
+#
+#  db-comment:
+#    image: postgres:13
+#    ports:
+#      - "5434:5432"
+#    environment:
+#      POSTGRES_USER: nikitaryabchikov
+#      POSTGRES_PASSWORD: 12345678
+#      POSTGRES_DB: comment-service_db
+#    volumes:
+#      - comment-db-data:/var/lib/postgresql/data
+#
+#volumes:
+#  comment-db-data:

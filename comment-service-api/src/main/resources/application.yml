@@ -1,0 +1,25 @@
+user:
+  service:
+    url: http://localhost:8083
+
+server:
+  port: 8081
+
+spring:
+  profiles:
+    active: dev
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8082/realms/smart-news-platform
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+
+
+cache:
+  type: lfu
+  max-size: 5

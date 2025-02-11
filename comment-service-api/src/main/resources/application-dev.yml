@@ -1,0 +1,21 @@
+spring:
+  security:
+    user:
+      name: comment_service_user
+      password: password
+      roles:
+        - SERVICE
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/comment-service_db
+    username: nikitaryabchikov
+    password: 12345678
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  cache:
+    max-size: 2
